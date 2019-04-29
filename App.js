@@ -1,9 +1,33 @@
 import React from "react";
-import { createStackNavigator, createAppContainer } from "react-navigation";
-import AuthScreen from './src/screens/Auth/Auth';
-import HomeScreen from './src/screens/Home/Home';
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
+//import { AuthScreen, HomeScreen, ArchiveScreen, UserModal } from "./src/screens/screens";
+import AuthScreen from "./src/screens/Auth/Auth";
+import HomeScreen from "./src/screens/Home/Home";
+import ArchiveScreen from "./src/screens/Archive/Archive";
+import UserModal from "./src/screens/UserModal/UserModal";
 
-const AppNavigator = createStackNavigator(
+
+const TabStack = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: "Requêtes"
+      }
+    },
+    Archive: {
+      screen: ArchiveScreen,
+      navigationOptions: {
+        title: "Archives"
+      }
+    },
+  },
+  {
+    initialRouteName: "Home"
+  }
+);
+
+const MainStack = createStackNavigator(
   {
     Auth: {
       screen: AuthScreen,
@@ -11,11 +35,8 @@ const AppNavigator = createStackNavigator(
         title: "Connexion",
       }
     },
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        title: "Requêtes"
-      }
+    Requests: {
+      screen: TabStack
     }
   },
   {
@@ -23,7 +44,23 @@ const AppNavigator = createStackNavigator(
   }
 );
 
-const AppContainer = createAppContainer(AppNavigator);
+
+const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: MainStack,
+    },
+    UserModal: {
+      screen: UserModal
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
 
 class App extends React.Component {
   render() {

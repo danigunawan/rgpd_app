@@ -5,7 +5,7 @@ import requestUrl from "../../../requestUrl";
 import axios from "axios";
 import { NavigationEvents } from 'react-navigation';
 
-class HomeScreen extends React.Component {
+class ArchiveScreen extends React.Component {
     state = {
         users: [],
         authToken: this.props.navigation.getParam('authToken', "No Token"),
@@ -13,7 +13,7 @@ class HomeScreen extends React.Component {
     }
 
     request() {
-        const fullUrl = requestUrl + "users";
+        const fullUrl = requestUrl + "cemetary";
         this.setState({ isLoading: true });
         axios.get(fullUrl, {
             headers: {
@@ -21,38 +21,36 @@ class HomeScreen extends React.Component {
             }
         }).then(response => {
             this.setState({ users: response.data })
-            console.log("Users on Users.js:", response.data)
+            console.log("Users on Archive.js:", this.state.users)
         }).catch(error => {
-            console.log("Error in Users.js", error);
+            console.log("Error in Cemetary.js", error);
         }).then(() => this.setState({ isLoading: false }));
     }
-
     render() {
         return (
             <View>
                 <NavigationEvents onDidFocus={this.request.bind(this)} />
                 <FlatList
-                    data={this.state.users}
-                    renderItem={
-                        object => {
-                            return (
-                                <User
-                                    user={object.item}
-                                    navigation={this.props.navigation}
-                                    authToken={this.state.authToken}
-                                    navigation={this.props.navigation} />
-                            )
-                        }
+                data={this.state.users}
+                renderItem={
+                    object => {
+                        return (
+                            <User
+                            key={object.item.id}
+                            user={object.item}
+                            navigation={this.props.navigation}
+                            authToken={this.state.authToken}
+                            navigation = {this.props.navigation}/>
+                        )
                     }
-                    keyExtractor={(item, index) => item.id.toString()}
-                    onRefresh={this.componentDidMount.bind(this)}
-                    refreshing={this.state.isLoading}
-                />
+                }
+                keyExtractor={(item, index) => index.toString()}
+                onRefresh={this.componentDidMount.bind(this)}
+                refreshing={this.state.isLoading}
+            />
             </View>
-
-
         );
     }
 }
 
-export default HomeScreen;
+export default ArchiveScreen;

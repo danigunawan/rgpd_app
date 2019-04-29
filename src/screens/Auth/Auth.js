@@ -12,7 +12,6 @@ class AuthScreen extends React.Component {
     }
 
     // Redirects to the Home Screen if credentials are valid
-
     buttonPressedHandler() {
         const fullUrl = requestURL + "login";
         console.log(fullUrl);
@@ -27,22 +26,13 @@ class AuthScreen extends React.Component {
             const { navigate } = this.props.navigation;
             console.log('AuthToken:', this.state.authToken);
             //console.log("res.data:", response.data);
-            navigate("Home", {
+            navigate("Requests", {
                 authToken: this.state.authToken
             });
         }).catch(error => {
             this.setState({ visibility: "visible" }); // show error message for wrong user/password
         });
     }
-    /*buttonPressedHandler(){
-        if (this.state.email == "yorickjacquin@gmail.com" && this.state.password == "Aristote1337!") {
-            const { navigate } = this.props.navigation;
-            navigate("Home");
-        }
-        else {
-            this.setState({visibility: "visible"}); // show error message for wrong user/password
-        }
-    }*/
     render() {
         return (
             <View style={styles.viewContainer}>
@@ -56,7 +46,8 @@ class AuthScreen extends React.Component {
                         style={styles.input}
                         keyboardType="email-address"
                         value={this.state.email}
-                        onChangeText={(text) => this.setState({ email: text })} />
+                        onChangeText={(text) => this.setState({ email: text })}
+                        onSubmitEditing={() => this.buttonPressedHandler()} />
                 </View>
                 <View style={styles.inputContainer}>
                     <Text>Mot de passe</Text>
@@ -64,7 +55,8 @@ class AuthScreen extends React.Component {
                         secureTextEntry={true}
                         style={styles.input}
                         value={this.state.password}
-                        onChangeText={(text) => this.setState({ password: text })} />
+                        onChangeText={(text) => this.setState({ password: text })}
+                        onSubmitEditing={() => this.buttonPressedHandler()} />
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
@@ -78,12 +70,13 @@ class AuthScreen extends React.Component {
 const styles = StyleSheet.create({
     viewContainer: {
         flex: 1,
-        alignItems: "stretch",
-        justifyContent: "space-around",
+        alignItems: "center",
+        justifyContent: "space-between",
         margin: 30
     },
     inputContainer: {
-
+        flex: 1,
+        width: "100%"
     },
     input: {
         height: 50,
@@ -91,6 +84,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     buttonContainer: {
+        flex:1,
     },
     visible: {
         alignItems: "center",
