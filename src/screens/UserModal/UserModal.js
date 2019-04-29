@@ -25,6 +25,24 @@ class UserModal extends React.Component {
             console.log("Error in UserModal.js", error);
         })
     }
+    deleteButtonPressed () {
+        const fullUrl = requestUrl + "delete";
+        console.log("Auth Token received by USerModal: ", this.props.navigation.getParam('authToken', "No Token"))
+        axios.post(fullUrl, { 
+            id: this.props.navigation.getParam('user', null).id
+        },{
+            headers: {
+                "Authorization": this.props.navigation.getParam('authToken', "No Token")
+            }
+        }
+        ).then(response => {
+            // ideally, add a succes message
+            console.log(response);
+            this.props.navigation.goBack();
+        }).catch(error => {
+            console.log("Error in UserModal.js", error);
+        })
+    }
     render() {
         console.log(this.props)
         const user = this.props.navigation.getParam('user', null);
@@ -53,15 +71,19 @@ class UserModal extends React.Component {
                         <Text style= {styles.Text}>Code postal: {user.zipcode}</Text>
                     </View>
                 </View>
-                <View style = {{flex: 1}}>
+                <View style = {{flex: 2}}>
                     <Button 
                         title = "Archiver" 
                         color="green"
                         onPress={this.archiveButtonPressed.bind(this)}/>
                     <Button 
                         title= "Fermer"
-                        color="red"
+                        color="blue"
                         onPress={() => this.props.navigation.goBack()}/>
+                    <Button 
+                        title= "Supprimer"
+                        color="red"
+                        onPress={this.deleteButtonPressed.bind(this)}/>
                 </View>
             </View>
         );

@@ -9,6 +9,7 @@
     "lint": "eslint src/**/*.js"
   },
   "dependencies": {
+    "@types/react-native-vector-icons": "^6.4.0",
     "axios": "^0.18.0",
     "react": "16.8.3",
     "react-native": "0.59.5",

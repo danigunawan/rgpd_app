@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
 import axios from "axios";
 import requestURL from "../../../requestUrl";
-
+import Icon from "react-native-vector-icons/Ionicons.js";
 class AuthScreen extends React.Component {
     state = {
         email: '',
@@ -61,6 +61,11 @@ class AuthScreen extends React.Component {
                 <View style={styles.buttonContainer}>
                     <Button
                         title="Se connecter"
+                        icon = {
+                            <Icon 
+                            name="logo-facebook"
+                            size= {30}/>
+                        }
                         onPress={() => this.buttonPressedHandler()} />
                 </View>
             </View>
