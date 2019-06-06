@@ -5,7 +5,7 @@ import AuthScreen from "./src/screens/Auth/Auth";
 import HomeScreen from "./src/screens/Home/Home";
 import ArchiveScreen from "./src/screens/Archive/Archive";
 import UserModal from "./src/screens/UserModal/UserModal";
-
+import NewsLetterScreen from "./src/screens/Newsletter/Newsletter";
 
 const TabStack = createBottomTabNavigator(
   {
@@ -52,6 +52,9 @@ const RootStack = createStackNavigator(
     },
     UserModal: {
       screen: UserModal
+    },
+    NewsLetter: {
+      screen: NewsLetterScreen
     },
   },
   {
