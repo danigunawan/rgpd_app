@@ -6,6 +6,9 @@ import HomeScreen from "./src/screens/Home/Home";
 import ArchiveScreen from "./src/screens/Archive/Archive";
 import UserModal from "./src/screens/UserModal/UserModal";
 import NewsLetterScreen from "./src/screens/Newsletter/Newsletter";
+import PathsScreen from "./src/screens/Paths/Paths";
+
+
 
 const TabStack = createBottomTabNavigator(
   {
@@ -27,7 +30,7 @@ const TabStack = createBottomTabNavigator(
   }
 );
 
-const MainStack = createStackNavigator(
+const AdminStack = createStackNavigator(
   {
     Auth: {
       screen: AuthScreen,
@@ -40,7 +43,8 @@ const MainStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Auth"
+    initialRouteName: "Auth",
+    headerMode: "none"
   }
 );
 
@@ -48,22 +52,53 @@ const MainStack = createStackNavigator(
 const RootStack = createStackNavigator(
   {
     Main: {
-      screen: MainStack,
+      screen: AdminStack,
     },
     UserModal: {
-      screen: UserModal
-    },
-    NewsLetter: {
-      screen: NewsLetterScreen
-    },
+      screen: UserModal,
+      header: null
+    }
   },
   {
     mode: 'modal',
     headerMode: 'none',
   }
 );
+const VisitorStack = createStackNavigator(
+  {
+    Visitor: {
+      screen: NewsLetterScreen,
+      title: "Visiteur"
+    }
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none'
+  }
+)
+const PathStack = createStackNavigator(
+  {
+    Paths: {
+      screen: PathsScreen,
+      navigationOptions: {
+        title: "Accueil"
+      }
+    },
+    Admin: {
+      screen: RootStack,
+    },
+    Visitor: {
+      screen: VisitorStack
+    },
+  },
+  {
+    initialRouteName: "Paths",
+    mode: 'modal',
+    headerMode: "screen"
+  }
+);
 
-const AppContainer = createAppContainer(RootStack);
+const AppContainer = createAppContainer(PathStack);
 
 class App extends React.Component {
   render() {

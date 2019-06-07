@@ -34,10 +34,6 @@ class AuthScreen extends React.Component {
         });
     }
 
-    newsletterPressedHandler() {
-        const { navigate } = this.props.navigation;
-        navigate("NewsLetter");
-    }
     render() {
         return (
             <View style={styles.viewContainer}>
@@ -62,11 +58,6 @@ class AuthScreen extends React.Component {
                         value={this.state.password}
                         onChangeText={(text) => this.setState({ password: text })}
                         onSubmitEditing={() => this.buttonPressedHandler()} />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        title="Newsletter"
-                        onPress={() => this.newsletterPressedHandler()} />
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
